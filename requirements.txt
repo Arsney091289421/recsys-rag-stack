@@ -1,0 +1,13 @@
+torch
+lightning
+sentence-transformers
+lightgbm
+faiss-cpu
+qdrant-client
+fastapi
+uvicorn
+mlflow
+crewai
+dspy-ai
+bitsandbytes
+transformers

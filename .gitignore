@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data
+*.parquet
+*.sqlite
+mlflow.db
+mlruns/
+data/processed/
+data/split/
+data/ab_events/
+
+# Virtual env
+.venv/
+venv/
+env/
+ENV/
+*.env
+
+# Mac / Linux
+.DS_Store
+
+# Logs
+logs/
+
+# IDE & editor
+.vscode/
+.idea/
+*.swp
