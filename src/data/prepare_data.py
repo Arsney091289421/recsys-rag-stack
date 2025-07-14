@@ -9,39 +9,38 @@ mlflow.set_experiment("prepare_data")
 
 def main():
     with mlflow.start_run(run_name="prepare_data"):
-        # 路径
         raw_dir = "data/raw/"
         processed_dir = "data/processed/"
         split_dir = "data/split/"
         os.makedirs(processed_dir, exist_ok=True)
         os.makedirs(split_dir, exist_ok=True)
 
-        # 读取数据
+        # read data
         events = pd.read_csv(os.path.join(raw_dir, "events.csv"))
         items_part1 = pd.read_csv(os.path.join(raw_dir, "item_properties_part1.csv"))
         items_part2 = pd.read_csv(os.path.join(raw_dir, "item_properties_part2.csv"))
         categories = pd.read_csv(os.path.join(raw_dir, "category_tree.csv"))
 
-        # 合并 item 属性
+        # Merge item attributes
         items_all = pd.concat([items_part1, items_part2])
         items_pivot = items_all.sort_values("timestamp").drop_duplicates(subset=["itemid", "property"], keep="last")
         items_wide = items_pivot.pivot(index="itemid", columns="property", values="value").reset_index()
 
-        # 可选：关联类别树 enrich
+        # Enrich items by associating with category tree
         if "categoryid" in items_wide.columns and "categoryid" in categories.columns:
             items_wide["categoryid"] = items_wide["categoryid"].astype(str)
             categories["categoryid"] = categories["categoryid"].astype(str)
             items_wide = items_wide.merge(categories, left_on="categoryid", right_on="categoryid", how="left")
 
-        # 生成 users 表（这里只统计 user_id）
+        # user table
         users = events[["visitorid"]].drop_duplicates().rename(columns={"visitorid": "user_id"})
 
-        # interactions 表
+        # interactions table
         interactions = events.rename(columns={"visitorid": "user_id", "itemid": "item_id"})
         interactions = interactions[["user_id", "item_id", "event", "timestamp"]]
         interactions["timestamp"] = pd.to_datetime(interactions["timestamp"], unit="ms")
 
-        # 划分 train/valid/test
+        # spilt train/valid/test
         split_time1 = interactions["timestamp"].quantile(0.7)
         split_time2 = interactions["timestamp"].quantile(0.85)
 
@@ -49,7 +48,7 @@ def main():
         valid = interactions[(interactions["timestamp"] > split_time1) & (interactions["timestamp"] <= split_time2)]
         test = interactions[interactions["timestamp"] > split_time2]
 
-        # 保存 parquet
+        # save parquet
         users.to_parquet(os.path.join(processed_dir, "users.parquet"))
         items_wide.to_parquet(os.path.join(processed_dir, "items.parquet"))
         train.to_parquet(os.path.join(split_dir, "train.parquet"))
