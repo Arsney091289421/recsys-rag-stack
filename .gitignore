@@ -20,6 +20,8 @@ mlruns/
 data/processed/
 data/split/
 data/ab_events/
+data/raw/*.csv
+mlflow.db
 
 # Virtual env
 .venv/

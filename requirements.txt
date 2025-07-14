@@ -10,4 +10,5 @@ mlflow
 crewai
 dspy-ai
 bitsandbytes
-transformers
+transformersdocker
+pandas
