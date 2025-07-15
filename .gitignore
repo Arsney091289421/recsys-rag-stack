@@ -44,3 +44,4 @@ logs/
 lightning_logs/
 1.py
 outputs/
+backup/
