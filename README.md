@@ -44,3 +44,17 @@ On macOS, Docker Desktop uses a Linux VM and overlay filesystem. If you configur
    ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
    ```
+
+---
+
+### MySQL Volume Backup
+
+Run:
+
+```bash
+./backup_mysql.sh
+```
+
+This safely stops Docker, then creates a timestamped `.tar.gz` backup in the `backup/` folder.
+
+---
