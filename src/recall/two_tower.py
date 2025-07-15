@@ -112,7 +112,7 @@ def main():
 
     print("Starting training...")
     trainer = pl.Trainer(
-        max_epochs=10,
+        max_epochs=20,
         accelerator="gpu" if torch.cuda.is_available() else "cpu",
         devices=1,
         log_every_n_steps=50,
@@ -128,7 +128,12 @@ def main():
             recall_callback  
         ]
     )
-    trainer.fit(model, train_loader, val_loader)
+    trainer.fit(
+       model,
+       train_loader,
+       val_loader,
+     # ckpt_path="outputs/best-checkpointV*.ckpt"    Countinue training from existing checkpoints-choose archived model version
+)
 
     print("Running test...")
     trainer.test(model, dataloaders=test_loader)
