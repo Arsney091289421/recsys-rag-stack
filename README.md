@@ -58,3 +58,36 @@ Run:
 This safely stops Docker, then creates a timestamped `.tar.gz` backup in the `backup/` folder.
 
 ---
+
+### 1. `src/data/prepare_data.py`
+
+This script is used for **data preprocessing and splitting**.
+It loads raw event and item property files, merges them to enrich item information, and generates user-item interaction logs.
+The script then splits the interactions into **train**, **validation**, and **test** sets based on timestamp quantiles.
+
+**Outputs:**
+
+* Processed user and item feature parquet files
+* Train, validation, and test parquet files for downstream modeling
+* All processed files are also logged to MLflow as artifacts for reproducibility
+
+---
+
+### 2. `src/recall` scripts
+
+* **`two_tower.py`**: Implements the Two-Tower recall model using PyTorch Lightning. It trains user and item embeddings using BPR loss. The script outputs the best checkpoint (based on validation loss), final embeddings, a FAISS index for retrieval, and registers the model to MLflow.
+
+* **`model_utils.py`**: Contains reusable Two-Tower model definitions and helper utilities, including the val/test evaluation logic and encoder exporting. This module is imported by other scripts to keep the main training script clean and modular.
+
+* **`evaluate_recall.py`**: Computes offline recall\@50 metric on the test set using the saved checkpoint. It logs the recall score back to MLflow under the same run for consistent tracking.
+
+**Outputs:**
+
+* Best checkpoint file (`.ckpt`)
+* Item embedding numpy file
+* FAISS index file
+* User and item ID encoders
+* Registered model in MLflow with performance metrics, including recall\@50
+
+---
+

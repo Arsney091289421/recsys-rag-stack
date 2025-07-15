@@ -1,0 +1,115 @@
+Detected GPU: NVIDIA GeForce RTX 3070 Ti Laptop GPU, total VRAM: 8.0 GB
+Automatically set batch size to 512 for 8GB VRAM.
+Set per-process GPU memory fraction to 85% to reserve ~1 GB for system.
+Loading train data...
+Saved user and item encoders.
+Loaded 1929271 interactions, 978922 users, 200975 items.
+Loading valid data...
+Loaded 56835 interactions, 17988 users, 23680 items.
+Loading test data...
+Loaded 35461 interactions, 12700 users, 17643 items.
+Starting training...
+INFO: Using 16bit Automatic Mixed Precision (AMP)
+INFO:lightning.pytorch.utilities.rank_zero:Using 16bit Automatic Mixed Precision (AMP)
+INFO: GPU available: True (cuda), used: True
+INFO:lightning.pytorch.utilities.rank_zero:GPU available: True (cuda), used: True
+INFO: TPU available: False, using: 0 TPU cores
+INFO:lightning.pytorch.utilities.rank_zero:TPU available: False, using: 0 TPU cores
+INFO: HPU available: False, using: 0 HPUs
+INFO:lightning.pytorch.utilities.rank_zero:HPU available: False, using: 0 HPUs
+F:\project\recys-rag-stack\venv\lib\site-packages\pytorch_lightning\trainer\connectors\logger_connector\logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `pytorch_lightning` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+2025/07/15 18:20:39 INFO mlflow.utils.autologging_utils: Created MLflow autologging run with ID 'aec4e88d11154b37ad2b10f89cb76df5', which will track hyperparameters, performance metrics, model artifacts, and lineage information for the current pytorch workflow
+2025/07/15 18:20:39 WARNING mlflow.utils.autologging_utils: MLflow autologging encountered a warning: "F:\project\recys-rag-stack\venv\lib\site-packages\mlflow\pytorch\_lightning_autolog.py:466: UserWarning: Autologging is known to be compatible with pytorch-lightning versions between 2.0.4 and 2.5.1.post0 and may not succeed with packages outside this range."
+F:\project\recys-rag-stack\venv\lib\site-packages\pytorch_lightning\callbacks\model_checkpoint.py:658: Checkpoint directory F:\project\recys-rag-stack\outputs exists and is not empty.
+INFO:pytorch_lightning.accelerators.cuda:LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+heckpoint directory F:\project\recys-rag-stack\outputs exists and is not empty.
+INFO:pytorch_lightning.accelerators.cuda:LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+INFO:pytorch_lightning.callbacks.model_summary:
+  | Name     | Type      | Params | Mode
+-----------------------------------------------
+0 | user_emb | Embedding | 62.7 M | train
+1 | item_emb | Embedding | 12.9 M | train
+-----------------------------------------------
+75.5 M    Trainable params
+0         Non-trainable params
+75.5 M    Total params
+302.054   Total estimated model params size (MB)
+2         Modules in train mode
+0         Modules in eval mode
+Sanity Checking: |                                                                                                                                  | 0/? [00:00<?, ?it/s]F:\project\recys-rag-stack\venv\lib\site-packages\pytorch_lightning\trainer\connectors\data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=19` in the `DataLoader` to improve performance.
+F:\project\recys-rag-stack\venv\lib\site-packages\pytorch_lightning\trainer\connectors\data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=19` in the `DataLoader` to improve performance. 
+Epoch 0:  19%|█████████████████▉                                                                        Epoch 0:  19%|█████                     | 729/3769 [00:24<01:41, 29.90it/s, v_num=19, train_loss=23.10] 
+Epoch 0: 100%|█████████████████████████| 3769/3769 [01:43<00:00, 36.25it/s, v_num=19, train_loss=17.10]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 568.31it/s] 
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2415.00it/s]
+✅  Mean recall@50: 0.0005
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 0] recall@50: 0.0005
+Epoch 1: 100%|█████████| 3769/3769 [01:40<00:00, 37.58it/s, v_num=19, train_loss=12.60, val_loss=20.00]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 519.32it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2274.25it/s]
+✅  Mean recall@50: 0.0015
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 1] recall@50: 0.0015
+Epoch 2: 100%|█████████| 3769/3769 [01:54<00:00, 32.90it/s, v_num=19, train_loss=10.60, val_loss=17.40]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 144.44it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:07<00:00, 1616.53it/s]
+✅  Mean recall@50: 0.0026
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 2] recall@50: 0.0026
+Epoch 3: 100%|█████████| 3769/3769 [01:45<00:00, 35.87it/s, v_num=19, train_loss=7.780, val_loss=15.90]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 484.94it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2260.57it/s]
+✅  Mean recall@50: 0.0033
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 3] recall@50: 0.0033
+Epoch 4: 100%|█████████| 3769/3769 [01:43<00:00, 36.58it/s, v_num=19, train_loss=6.070, val_loss=14.80]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 524.29it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2235.33it/s]
+✅  Mean recall@50: 0.0053
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 4] recall@50: 0.0053
+Epoch 5: 100%|█████████| 3769/3769 [01:47<00:00, 35.00it/s, v_num=19, train_loss=7.920, val_loss=14.00]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 406.17it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2204.96it/s]
+✅  Mean recall@50: 0.0069
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 5] recall@50: 0.0069
+Epoch 6: 100%|█████████| 3769/3769 [01:47<00:00, 35.21it/s, v_num=19, train_loss=4.710, val_loss=13.30]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 143.65it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:11<00:00, 1117.15it/s]
+✅  Mean recall@50: 0.0093
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 6] recall@50: 0.0093
+Epoch 7: 100%|█████████| 3769/3769 [01:44<00:00, 36.05it/s, v_num=19, train_loss=4.640, val_loss=12.90]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 480.23it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2274.26it/s]
+✅  Mean recall@50: 0.0122
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 7] recall@50: 0.0122
+Epoch 8: 100%|█████████| 3769/3769 [01:44<00:00, 36.01it/s, v_num=19, train_loss=2.290, val_loss=12.50]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 550.92it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2321.53it/s]
+✅  Mean recall@50: 0.0160
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 8] recall@50: 0.0160
+Epoch 9: 100%|█████████| 3769/3769 [01:50<00:00, 34.12it/s, v_num=19, train_loss=2.700, val_loss=12.20]
+▶️  compute_recall@50  (ckpt=outputs/tmp-epoch-checkpoint.ckpt)██████| 112/112 [00:00<00:00, 493.38it/s]
+recall@50: 100%|███████████████████████████████████████████████| 12700/12700 [00:05<00:00, 2301.36it/s]
+✅  Mean recall@50: 0.0198
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
+🧪 View experiment at: http://localhost:5500/#/experiments/4
+[Epoch 9] recall@50: 0.0198
+Epoch 9: 100%|█████████| 3769/3769 [02:00<00:00, 31.21it/s, v_num=19, train_loss=2.700, val_loss=12.00]INFO: `Trainer.fit` stopped: `max_epochs=10` reached.
+INFO:lightning.pytorch.utilities.rank_zero:`Trainer.fit` stopped: `max_epochs=10` reached.
+Epoch 9: 100%|█████████| 3769/3769 [02:15<00:00, 27.78it/s, v_num=19, train_loss=2.700, val_loss=12.00] 
+🏃 View run overjoyed-newt-136 at: http://localhost:5500/#/experiments/4/runs/aec4e88d11154b37ad2b10f89cb76df5
