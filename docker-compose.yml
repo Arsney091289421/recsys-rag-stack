@@ -1,17 +1,36 @@
+version: '3.9'
+
 services:
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.13.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5500:5000"
     environment:
-      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow.db
+      - MLFLOW_BACKEND_STORE_URI=mysql+pymysql://mlflow:mlflow@mysql/mlflow
     volumes:
       - ./mlruns:/mlflow-artifacts
-      - ./mlflow.db:/mlflow/mlflow.db
     command: >
       mlflow server
-        --backend-store-uri sqlite:///mlflow.db
+        --backend-store-uri mysql+pymysql://mlflow:mlflow@mysql/mlflow
         --artifacts-destination /mlflow-artifacts
         --serve-artifacts
         --host 0.0.0.0
         --port 5000
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mlflow
+      MYSQL_USER: mlflow
+      MYSQL_PASSWORD: mlflow
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

@@ -39,4 +39,8 @@ On macOS, Docker Desktop uses a Linux VM and overlay filesystem. If you configur
    chmod -R 777 mlruns
    ```
 
+# Windows + NVIDIA GPU user
 
+   ```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+   ```
