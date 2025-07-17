@@ -19,12 +19,14 @@ mlflow.db
 mlruns/
 data/processed/
 data/split/
+data/features
 data/ab_events/
 data/raw/*.csv
 mlflow.db
 
 # Virtual env
 .venv/
+venv-wsl/
 venv/
 env/
 ENV/

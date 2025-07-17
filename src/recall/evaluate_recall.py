@@ -8,7 +8,7 @@ torch.set_float32_matmul_precision("high")
 
 
 # --------------------------------------------------
-# 计算 recall@K & 记录到 MLflow（自动使用 nested run）
+# caculate recall@K & upload to MLflow(use nested run)
 # --------------------------------------------------
 def compute_recall_at_k(model_ckpt_path, test_path="data/split/test.parquet",
                         k=50):
@@ -50,12 +50,10 @@ def compute_recall_at_k(model_ckpt_path, test_path="data/split/test.parquet",
     # ---------- MLflow ----------
     active = mlflow.active_run()
     if active is None:
-        # 训练脚本外独立调用
         mlflow.set_tracking_uri("http://localhost:5500")
         mlflow.set_experiment("two_tower_recall_compute")
         mlflow.start_run(run_name=f"eval_recall@{k}")
     else:
-        # 训练脚本内，主 run 已经 active -> 开 nested
         mlflow.start_run(run_id=active.info.run_id, nested=True)
 
     mlflow.log_metric(f"recall_at_{k}", mean_recall,
@@ -65,7 +63,7 @@ def compute_recall_at_k(model_ckpt_path, test_path="data/split/test.parquet",
 
 
 # --------------------------------------------------
-# Lightning 回调：每个验证 epoch 结束后评估一次 recall@K
+# for each epoch check recall@K
 # --------------------------------------------------
 class RecallEvalCallback(pl.Callback):
     def __init__(self, ckpt_path: str, k: int = 50):
@@ -74,7 +72,7 @@ class RecallEvalCallback(pl.Callback):
         self.k         = k
 
     def on_validation_epoch_end(self, trainer, pl_module):
-        # 跳过 sanity check
+        # skip sanity check
         if trainer.sanity_checking:
             return
         trainer.save_checkpoint(self.ckpt_path)
@@ -83,6 +81,6 @@ class RecallEvalCallback(pl.Callback):
               f"{mrec:.4f}", flush=True)
 
 
-# -------------- 单独运行时 --------------
+# -------------- when run seperately --------------
 if __name__ == "__main__":
-    compute_recall_at_k("outputs/best-checkpoint.ckpt", k=50)
+    compute_recall_at_k("outputs/tmp-epoch-checkpoint.ckpt", k=50)
