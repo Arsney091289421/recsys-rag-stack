@@ -124,3 +124,10 @@ This module applies LambdaRank-based re-ranking on top of candidate items genera
 - **Train NDCG@10**: 0.99997
 - **Valid NDCG@10**: 0.99987
 - The model is compact and converges quickly, suitable for real-time re-ranking in recommendation systems.
+
+### Model Comparison: Two-Tower vs. GBT (LambdaRank)
+
+| Model           | Valid Users | NDCG@10  | Role                                 |
+|----------------|-------------|----------|--------------------------------------|
+| Two-Tower       | 100         | 0.0163   | Large-scale recall (fast, coarse)    |
+| GBT (LambdaRank)| 54          | 0.5789   | Fine-grained ranking (accurate, learned features) |
